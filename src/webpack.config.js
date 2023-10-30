@@ -45,6 +45,7 @@ const ENABLE_ESBUILD = config.options.esbuild;
 const ENABLE_STATS = config.options.stats;
 const ENABLE_LINTING = config.options.linting;
 const ENABLE_SOURCE_MAPS = config.options.sourcemaps;
+const DEV_TOOLS = ENABLE_SOURCE_MAPS ? config.options.devtool ? config.options.devtool : "source-map" : false;
 const ENABLE_TYPESCRIPT = fs.existsSync(tsConfigPath);
 const ENABLE_TSCHECKER = !config.options.disableForkTsChecker;
 const GENERATE_STATS_FILES = config.options.generateStatsFiles;
@@ -430,7 +431,7 @@ module.exports = {
   context: __dirname,
   // Disable verbose logs
   stats: ENABLE_STATS ? "normal" : "errors-only",
-  devtool: ENABLE_SOURCE_MAPS ? "source-map" : false,
+  devtool: DEV_TOOLS,
   externals: computedExternals,
   mode: isLocal ? "development" : "production",
   performance: {
